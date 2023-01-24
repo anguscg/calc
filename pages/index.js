@@ -1,31 +1,45 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { useState} from 'react';
+import { equal } from 'assert';
 
 export default function Home() {
 
   const [calc, setCalc] = useState('');
   const [result, setResult] = useState('');
-  const operators = ['/', '*', '+', '-', '.']
+  const operators = ['/', '*', '+', '-', '.'];
 
+  function equalTo() {
+    setCalc(eval(calc).toString())
+  };
+
+  function deleteLast() {
+    if (calc == '') {
+      return
+    } 
+    let value = calc.slice(0, -1)
+    setCalc(value)
+  }
+
+  // Creating digits from 1-9
   function createDigits() {
     let numbers = [];
     for (let i = 1; i < 10 ; i++) {
       numbers.push(<button onClick={() => newCalc(i.toString())} key={i}>{i}</button>)
     }
     return numbers
-  }
+  };
   // A function blocking the user from putting two operators together
   function newCalc(value) {
     if (operators.includes(value) && calc === '' || operators.includes(value) && operators.includes(calc.slice(-1))) {
       return;
     }
     setCalc(calc + value)
-
+    // to handle the calculation
     if (!operators.includes(value)) {
       setResult(eval(calc + value).toString())
     }
-  }
+  };
 
   return (
     <div className={styles.container}>
@@ -46,9 +60,10 @@ export default function Home() {
           <button onClick={() => newCalc('-')}>-</button>
           <button onClick={() => newCalc('.')}>.</button>
           <button onClick={() => newCalc('0')}>0</button>
-          <button>DEL</button>
+          <button onClick={deleteLast}>DEL</button>
         </div>
         <div className={styles.numbers}>
+          <button onClick={equalTo}>=</button>
           {createDigits()}
 
         </div>
