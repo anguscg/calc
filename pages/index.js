@@ -50,23 +50,28 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <div>
-          {result ? <span>({result})</span> : ''} {calc || '0'}
-        </div>
-        <div className="operators">
-          <button onClick={() => newCalc('/')}>/</button>
-          <button onClick={() => newCalc('*')}>*</button>
-          <button onClick={() => newCalc('+')}>+</button>
-          <button onClick={() => newCalc('-')}>-</button>
-          <button onClick={() => newCalc('.')}>.</button>
-          <button onClick={() => newCalc('0')}>0</button>
-          <button onClick={deleteLast}>DEL</button>
-        </div>
-        <div className={styles.numbers}>
-          <button onClick={equalTo}>=</button>
-          {createDigits()}
+        <div className={styles.calculator}>
+          <div className={styles.screen}>
+            {result ? <span>({result})&nbsp;&nbsp;</span> : ''} {calc || '0'}
+          </div>
+          <div className={styles.operators}>
+            <button onClick={() => newCalc('/')}>/</button>
+            <button onClick={() => newCalc('*')}>*</button>
+            <button onClick={() => newCalc('+')}>+</button>
+            <button onClick={() => newCalc('-')}>-</button>  
+            <button onClick={deleteLast}>DEL</button>
+          </div>
+          <div className={styles.numbers}>
+            {createDigits()}
+          </div>
+          <div className={styles.operatorstwo}>
+            <button onClick={() => newCalc('0')}>0</button>
+            <button onClick={() => newCalc('.')}>.</button>
+            <button onClick={equalTo}>=</button>
+          </div>
 
         </div>
+
       </main>
 
       <footer className={styles.footer}>
